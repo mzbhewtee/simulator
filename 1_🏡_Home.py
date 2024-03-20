@@ -4,7 +4,7 @@ from PIL import Image
 # Set page title and icon
 img = Image.open("logo192.png")
 
-st.set_page_config(page_title="Quantum Simulation for Renewable Energy", page_icon=img, layout="wide")
+st.set_page_config(page_title="Simulator", page_icon=img, layout="wide")
 
 def show_information():
     st.title("Introduction to Quantum Simulation")

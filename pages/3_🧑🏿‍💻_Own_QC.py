@@ -3,6 +3,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cirq
 
+from PIL import Image
+
+# Set page title and icon
+img = Image.open("logo192.png")
+
+st.set_page_config(page_icon=img, layout="wide")
+
 # Function to execute user-defined Python code
 def execute_user_code(user_code):
     try:

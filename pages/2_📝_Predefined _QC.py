@@ -3,6 +3,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 import cirq
 
+from PIL import Image
+
+# Set page title and icon
+img = Image.open("logo192.png")
+
+st.set_page_config(page_icon=img, layout="wide")
+
 def simulate_quantum_algorithm(algorithm, num_qubits, operation):
     if algorithm == 'VQE':
         if operation == 'Energy Transition':
