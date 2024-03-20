@@ -1,29 +1,8 @@
 import streamlit as st
-import cirq
 import numpy as np
 import matplotlib.pyplot as plt
-
-# Function to create a custom quantum circuit based on user input
-def create_custom_circuit(num_qubits, operation):
-    circuit = cirq.Circuit()
-    
-    # Create qubits
-    qubits = [cirq.LineQubit(i) for i in range(num_qubits)]
-
-    if operation == 'Hadamard':
-        for qubit in qubits:
-            circuit.append(cirq.H(qubit))
-    elif operation == 'Energy Transition':
-        if num_qubits < 2:
-            st.error("Energy transition requires at least 2 qubits.")
-            return None
-        circuit.append(cirq.H(qubits[0]))
-        circuit.append(cirq.CNOT(qubits[0], qubits[1]))
-    else:
-        st.error("Unsupported operation.")
-        return None
-
-    return circuit
+from io import StringIO
+from qsharp import compile as qsharp_compile, execute as qsharp_execute
 
 # Streamlit app
 st.sidebar.title("Quantum Simulation for Renewable Energy")
@@ -43,24 +22,32 @@ Quantum simulation involves using a quantum computer to model and simulate quant
 These simulations can help us understand and solve complex problems in various fields, including renewable energy.
 """)
 
-# User input for circuit parameters
-num_qubits = st.sidebar.slider("Number of Qubits", min_value=1, max_value=100, value=2)
-operation = st.sidebar.selectbox("Quantum Operation", ['Hadamard', 'Energy Transition'])
+# Text area for user to input their own quantum circuit code
+st.header("Write Your Own Quantum Circuit (Q#)")
+user_code = st.text_area("Write your Q# code here:")
 
-# Create and display the custom quantum circuit
-st.header("Custom Quantum Circuit")
-custom_circuit = create_custom_circuit(num_qubits, operation)
-if custom_circuit:
-    st.text(custom_circuit)
+# Button to execute user-defined Q# code
+if st.button("Run Code"):
+    try:
+        # Compile Q# code
+        compiled_code = qsharp_compile(StringIO(user_code))
+
+        # Execute Q# operation
+        result = qsharp_execute(compiled_code.RandomBit)
+        
+        # Display result
+        st.write("Measurement Result:", result)
+    except Exception as e:
+        st.error(f"An error occurred: {e}")
 
 # Allow users to select the quantum algorithm
 algorithm = st.sidebar.selectbox("Quantum Algorithm", ['None', 'Grover', 'VQE'])
 
-# Quantum simulation is not supported directly in Cirq for Grover's algorithm or VQE, 
+# Quantum simulation is not supported directly for Grover's algorithm or VQE, 
 # so you may need to modify or simplify the simulation part of your app accordingly.
 
 # For demonstration purposes, let's plot a random energy landscape for VQE simulation
-if operation == 'Energy Transition' and algorithm == 'VQE':
+if algorithm == 'VQE':
     st.header("Simulation Results (VQE)")
     # Simulate random energy landscape
     num_points = 100
@@ -86,4 +73,3 @@ if operation == 'Energy Transition' and algorithm == 'VQE':
     
     By leveraging quantum algorithms like VQE, researchers can accelerate the discovery and optimization of materials critical for advancing clean and sustainable energy solutions.
     """)
-
