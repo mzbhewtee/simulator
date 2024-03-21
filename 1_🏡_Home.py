@@ -33,6 +33,13 @@ def show_information():
     Some well-known quantum algorithms include Grover's algorithm for searching unsorted databases and 
     Shor's algorithm for integer factorization, which can break classical cryptographic protocols.
     """)
+    st.write("Common quantum algorithms include:")
+    st.write("- Grover's algorithm: for searching unsorted databases in O(√N) time, where N is the number of items in the database")
+    st.write("- Shor's algorithm: for integer factorization in polynomial time, breaking classical cryptographic protocols")
+    st.write("- Quantum phase estimation: for estimating the eigenvalues of unitary operators")
+    st.write("- Variational quantum eigensolver (VQE): for finding the ground state energy of a molecule" )
+    st.write("- Quantum approximate optimization algorithm (QAOA): for solving combinatorial optimization problems")
+
     st.image("quantum_algorithms.jpg", caption="Quantum algorithms taking advantage of qubit properties", width=400)
 
     st.header("Quantum Operations")
@@ -43,6 +50,14 @@ def show_information():
     Common quantum operations include the Hadamard gate, which creates superposition, 
     and the CNOT gate, which creates entanglement between qubits.
     """)
+    st.write("Common quantum operations include:")
+    st.write("- Hadamard gate: creates superposition by rotating the qubit state around the X+Z axis")
+    st.write("- Pauli gates (X, Y, Z): perform rotations around the X, Y, and Z axes of the Bloch sphere")
+    st.write("- CNOT gate: entangles two qubits by flipping the target qubit if the control qubit is |1>")
+    st.write("- SWAP gate: swaps the states of two qubits")
+    st.write("- Toffoli gate: a controlled-controlled-NOT gate that flips the target qubit if both control qubits are |1>")
+    st.write("- Energy transition gate: simulates energy transitions in quantum systems")
+
     st.image("quantum_operations.jpg", caption="Common quantum operations", width=400)
 
 if __name__ == "__main__":
