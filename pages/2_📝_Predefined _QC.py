@@ -1,6 +1,12 @@
 import streamlit as st
 import cirq
 import sympy as sp
+from PIL import Image
+
+# Set page title and icon
+img = Image.open("logo192.png")
+
+st.set_page_config(page_icon=img, layout="wide")
 
 # Function to generate a Grover iteration circuit
 def grover_iteration(qubits):
